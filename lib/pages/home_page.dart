@@ -9,7 +9,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  //List notas = [];
+  List notes = [];
   @override
   void initState() {
     super.initState();
@@ -19,19 +19,33 @@ class _HomePageState extends State<HomePage> {
 
   notesGet() async {
     // Recuperar datos de BD backend
-    var notes = await AdminService().getNotes();
-    print(notes);
+    notes = await AdminService().getNotes();
+    //print(notes);
     setState(() {});
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home Page'),
-      ),
-      body: const Center(
-        child: Text('Home Page'),
-      ),
-    );
+        appBar: AppBar(
+          title: const Text('Home Page'),
+        ),
+        body: Column(
+          children: [
+            Row(
+              children: [
+                ElevatedButton(
+                    onPressed: () {
+                      notesGet();
+                    },
+                    child: Text("Actualizar"))
+              ],
+            ),
+            for (var note in notes)
+              ListTile(
+                title: Text(note['title']),
+                subtitle: Text(note['content']),
+              )
+          ],
+        ));
   }
 }
