@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notas_app/services/admin_service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -8,15 +9,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List notas = [];
+  //List notas = [];
   @override
   void initState() {
     super.initState();
+    //metodo para obtener las notas
     notesGet();
   }
 
   notesGet() async {
-    // Get notes from database
+    // Recuperar datos de BD backend
     var notes = await AdminService().getNotes();
     print(notes);
     setState(() {});
