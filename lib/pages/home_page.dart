@@ -10,6 +10,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List notes = [];
+  //List colors = [];
   @override
   void initState() {
     super.initState();
@@ -24,6 +25,26 @@ class _HomePageState extends State<HomePage> {
     setState(() {});
   }
 
+  colorGet(String color) {
+    switch (color) {
+      case 'red':
+        return Colors.red;
+      case 'green':
+        return Colors.green;
+      case 'blue':
+        return Colors.blue;
+      case 'grey':
+        color;
+        return Colors.grey;
+      case 'orange':
+        return Colors.orange;
+      case 'yellow':
+        return Colors.yellowAccent;
+      default:
+        return Colors.white;
+    }
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -32,6 +53,7 @@ class _HomePageState extends State<HomePage> {
         body: Column(
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
                     onPressed: () {
@@ -41,9 +63,15 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             for (var note in notes)
-              ListTile(
-                title: Text(note['title']),
-                subtitle: Text(note['content']),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListTile(
+                  //color desde la BD
+                  tileColor: colorGet(note['color']),
+                  textColor: Colors.black,
+                  title: Text(note['title']),
+                  subtitle: Text(note['content']),
+                ),
               )
           ],
         ));
