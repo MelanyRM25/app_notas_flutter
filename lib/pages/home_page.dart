@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notas_app/pages/formulario.dart';
 import 'package:notas_app/services/admin_service.dart';
 
 class HomePage extends StatefulWidget {
@@ -47,33 +48,41 @@ class _HomePageState extends State<HomePage> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Home Page'),
-        ),
-        body: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                    onPressed: () {
-                      notesGet();
-                    },
-                    child: Text("Actualizar"))
-              ],
-            ),
-            for (var note in notes)
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ListTile(
-                  //color desde la BD
-                  tileColor: colorGet(note['color']),
-                  textColor: Colors.black,
-                  title: Text(note['title']),
-                  subtitle: Text(note['content']),
-                ),
-              )
-          ],
-        ));
+      appBar: AppBar(
+        title: const Text('Home Page'),
+      ),
+      body: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                  onPressed: () {
+                    notesGet();
+                  },
+                  child: Text("Actualizar"))
+            ],
+          ),
+          for (var note in notes)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListTile(
+                //color desde la BD
+                tileColor: colorGet(note['color']),
+                textColor: Colors.black,
+                title: Text(note['title']),
+                subtitle: Text(note['content']),
+              ),
+            )
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Formulario()));
+        },
+        child: Icon(Icons.add),
+      ),
+    );
   }
 }
