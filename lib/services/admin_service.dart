@@ -16,4 +16,35 @@ class AdminService {
       return 'Error'; //si no hay datos "error"
     }
   }
+
+
+  Future postNote(String title, String content) async {
+    var response = await http.post(Uri.parse(url + 'notes'),
+        body:({
+          "title": title,
+          "content": content,
+        }));
+
+        
+    if (response.statusCode == 200) {
+      return 'Success'; //si hay datos "success"
+    } else {
+      return 'Error'; //si no hay datos "error"
+    }
+  }
+  Future putNotes(int id, String title, String content) async {
+    var response = await http.put(Uri.parse(url + 'notes/$id'),
+        // headers: {"Content-Type": "application/json"},
+        body:({
+          "title": title,
+          "content": content,
+        }));
+
+        
+    if (response.statusCode == 200) {
+      return 'Success'; //si hay datos "success"
+    } else {
+      return 'Error'; //si no hay datos "error"
+    }
+  }
 }

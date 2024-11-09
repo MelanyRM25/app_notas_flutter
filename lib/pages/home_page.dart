@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
       case 'orange':
         return Colors.orange;
       case 'yellow':
-        return Colors.yellowAccent;
+        return Colors.yellow;
       default:
         return Colors.white;
     }
@@ -63,23 +63,54 @@ class _HomePageState extends State<HomePage> {
                   child: Text("Actualizar"))
             ],
           ),
-          for (var note in notes)
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListTile(
-                //color desde la BD
-                tileColor: colorGet(note['color']),
-                textColor: Colors.black,
-                title: Text(note['title']),
-                subtitle: Text(note['content']),
-              ),
-            )
+                Expanded(
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: notes.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    tileColor: colorGet(notes[index]['color']),
+                    textColor: Colors.white,
+                    title: Text(notes[index]['title']),
+                    subtitle: Text(notes[index]['content']),
+                    leading: FittedBox(
+                      fit: BoxFit.fill,
+                      child: Row(
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.edit),
+                            onPressed: () async {
+                              await Navigator.push(context, MaterialPageRoute(builder: (context) => Formulario(
+                                id: notes[index]['id'],
+                                title: notes[index]['title'],
+                                content: notes[index]['content']
+                              )));
+                              await notesGet();
+                            },
+                          ),
+                          // IconButton(
+                          //   icon: const Icon(Icons.delete),
+                          //   onPressed: () async {
+                          //     await AdminService().deleteNotes(notes[index]['id']);
+                          //     await notesGet();
+                          //   },
+                          // ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Formulario()));
+        onPressed: () async {
+          await Navigator.push(context, MaterialPageRoute(builder: (context) => Formulario())); 
+          await notesGet();
         },
         child: Icon(Icons.add),
       ),
