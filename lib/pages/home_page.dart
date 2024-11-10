@@ -90,13 +90,13 @@ class _HomePageState extends State<HomePage> {
                               await notesGet();
                             },
                           ),
-                          // IconButton(
-                          //   icon: const Icon(Icons.delete),
-                          //   onPressed: () async {
-                          //     await AdminService().deleteNotes(notes[index]['id']);
-                          //     await notesGet();
-                          //   },
-                          // ),
+                          IconButton(
+                            icon: const Icon(Icons.delete),
+                            onPressed: () async {
+                              await AdminService().deleteNotes(notes[index]['id']);
+                              await notesGet();
+                            },
+                          ),
                         ],
                       ),
                     ),
@@ -109,7 +109,7 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          await Navigator.push(context, MaterialPageRoute(builder: (context) => Formulario())); 
+          await Navigator.push(context, MaterialPageRoute(builder: (context) => Formulario()));
           await notesGet();
         },
         child: Icon(Icons.add),

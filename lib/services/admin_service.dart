@@ -47,4 +47,13 @@ class AdminService {
       return 'Error'; //si no hay datos "error"
     }
   }
+
+  Future deleteNotes(int id) async {
+    var response = await http.delete(Uri.parse(url + 'notes/$id'));
+    if (response.statusCode == 200) {
+      return 'Success'; //si hay datos "success"
+    } else {
+      return 'Error'; //si no hay datos "error"
+    }
+  }
 }
