@@ -1,9 +1,30 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
+import 'package:localstorage/localstorage.dart';
+
 class AdminService {
   //vamos al endpoint del backend
   static const url = 'http://127.0.0.1:8000/api/';
+
+
+
+  Future login(String email, String password) async {
+    var response = await http.post(Uri.parse(url + 'login'),
+        body:({
+          "email": email,
+          "password": password,
+        }));
+    if (response.statusCode == 200) {
+      var jsonResponse = convert.jsonDecode(response.body); //trae datos con Json
+          var token = jsonResponse['token']; //guarda el token en una variable
+          localStorage.setItem('token', token); //guarda el token en el localstorage
+          print(jsonResponse);
+      return true; //retorna un json
+    }   else {
+      return false; //si no hay datos "error"
+    }
+  }
   //Obtener notas del endpoint
   Future getNotes() async {
     var response =

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:notas_app/pages/home_page.dart';
+import 'package:notas_app/pages/login.dart';
+import 'package:localstorage/localstorage.dart';
 
-void main() {
+
+void main() async {
+  await initLocalStorage();
   runApp(const MyApp());
 }
 
@@ -17,7 +20,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: const HomePage(),
+      home: const Login_Screen()
     );
   }
 }
